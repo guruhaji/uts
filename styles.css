@@ -1,0 +1,88 @@
+body {
+    background-color: #f8fdfd;
+}
+.sidebar {
+    background-color: #ffffff;
+    padding: 20px;
+    height: 100vh;
+    border-right: 1px solid #ddd;
+}
+.sidebar .nav-link {
+    color: #000;
+}
+.sidebar .nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
+.header {
+    background-color: #0033cc;
+    color: #fff;
+    padding: 10px 20px;
+    position: relative;
+}
+.header .profile-icon {
+    float: right;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+.header .profile-menu {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}
+.header .profile-menu a {
+    display: block;
+    padding: 10px;
+    color: #000;
+    text-decoration: none;
+}
+.header .profile-menu a:hover {
+    background-color: #f1f1f1;
+}
+.content {
+    padding: 20px;
+}
+.card {
+    border-radius: 10px;
+}
+.card i {
+    font-size: 24px;
+}
+.profile-section {
+    text-align: center;
+}
+.profile-section img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+.table-actions i {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
+.fade-in {
+    animation: fadeIn 0.5s;
+}
+.nav-link, .mt-3 {
+    font-size: 16px; 
+    font-weight: normal; 
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

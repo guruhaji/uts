@@ -1,0 +1,1121 @@
+<html>
+ <head>
+  <title>
+   UTS
+  </title>
+  <link rel="stylesheet" href="styles.css">
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    
+   body {
+            background-color: #f8fdfd;
+        }
+        .sidebar {
+            background-color: #ffffff;
+            padding: 20px;
+            height: 100vh;
+            border-right: 1px solid #ddd;
+        }
+        .sidebar .nav-link {
+            color: #000;
+        }
+        .sidebar .nav-link.active {
+            background-color: #41b327;
+            color: #fff;
+        }
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        .header {
+            background-color: #0033cc;
+            color: #fff;
+            padding: 10px 20px;
+            position: relative;
+        }
+        .card {
+        background-color: #72f1a3;
+        border-left: 5px solid #007bff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        background-color: #007bff;
+        color: white;
+        }
+        .header .profile-menu {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+        .header .profile-menu a {
+            display: block;
+            padding: 10px;
+            color: #000;
+            text-decoration: none;
+        }
+        .header .profile-menu a:hover {
+            background-color: #f1f1f1;
+        }
+        .content {
+            padding: 20px;
+        }
+        .card {
+            border-radius: 10px;
+        }
+        .card i {
+            font-size: 24px;
+        }
+        .badge {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: normal;
+    }
+    
+    .table-actions i {
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    
+    .table-actions i:hover {
+        opacity: 0.8;
+    }
+        .profile-section {
+            text-align: center;
+        }
+        .profile-section img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        .table-actions i {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+        .nav-link, .mt-3 {
+    font-size: 16px; 
+    font-weight: normal; 
+}
+.card i {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .card h6 {
+        margin-bottom: 5px;
+    }
+
+    .card p {
+        margin-bottom: 0;
+    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+  </style>
+  <script>
+   function showContent(contentId, element) {
+            var contents = document.getElementsByClassName('content-section');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.add('hidden');
+                contents[i].classList.remove('fade-in');
+            }
+            var content = document.getElementById(contentId);
+            content.classList.remove('hidden');
+            content.classList.add('fade-in');
+
+            var links = document.getElementsByClassName('nav-link');
+            for (var i = 0; i < links.length; i++) {
+                links[i].classList.remove('active');
+            }
+            element.classList.add('active');
+        }
+
+        function toggleProfileMenu() {
+            var profileMenu = document.getElementById('profileMenu');
+            if (profileMenu.style.display === 'none' || profileMenu.style.display === '') {
+                profileMenu.style.display = 'block';
+            } else {
+                profileMenu.style.display = 'none';
+            }
+        }
+        function simpanPengguna() {
+    // Validasi password
+    const password = document.getElementById('passwordPengguna').value;
+    const konfirmasi = document.getElementById('konfirmasiPassword').value;
+    
+    if (password !== konfirmasi) {
+        alert('Password dan konfirmasi password tidak cocok!');
+        return;
+    }
+
+    // Mengambil semua nilai input
+    const pengguna = {
+        nomor: document.getElementById('nomorPengguna').value,
+        nama: document.getElementById('namaPengguna').value,
+        email: document.getElementById('emailPengguna').value,
+        role: document.getElementById('rolePengguna').value,
+        status: document.getElementById('statusPengguna').value
+    };
+
+    // Validasi form
+    if (!pengguna.nomor || !pengguna.nama || !pengguna.email || !pengguna.role || !pengguna.status) {
+        alert('Semua field harus diisi!');
+        return;
+    }
+
+    // Di sini Anda bisa menambahkan logika untuk menyimpan data
+    // Misalnya menambahkan baris baru ke tabel
+    const tbody = document.querySelector('#pengguna table tbody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td>${pengguna.nomor}</td>
+        <td>${pengguna.nama}</td>
+        <td>${pengguna.email}</td>
+        <td class="table-actions">
+            <i class="fas fa-edit text-warning"></i>
+            <i class="fas fa-trash text-danger"></i>
+        </td>
+    `;
+    tbody.appendChild(tr);
+
+    // Reset form dan tutup modal
+    document.getElementById('formTambahPengguna').reset();
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalTambahPengguna'));
+    modal.hide();
+
+    // Tampilkan pesan sukses
+    alert('Pengguna baru berhasil ditambahkan!');
+}
+function showContent(contentId, element) {
+        var contents = document.getElementsByClassName('content-section');
+        for (var i = 0; i < contents.length; i++) {
+            contents[i].classList.add('hidden');
+            contents[i].classList.remove('fade-in');
+        }
+        var content = document.getElementById(contentId);
+        content.classList.remove('hidden');
+        content.classList.add('fade-in');
+
+        var links = document.getElementsByClassName('nav-link');
+        for (var i = 0; i < links.length; i++) {
+            links[i].classList.remove('active');
+        }
+        element.classList.add('active');
+    }
+
+    function toggleProfileMenu() {
+        var profileMenu = document.getElementById('profileMenu');
+        if (profileMenu.style.display === 'none' || profileMenu.style.display === '') {
+            profileMenu.style.display = 'block';
+        } else {
+            profileMenu.style.display = 'none';
+        }
+    }
+
+    // Fungsi untuk menangani form izin
+    function tambahIzin() {
+        // Mengambil nilai dari form
+        const namaKaryawan = document.getElementById('namaKaryawanIzin').value;
+        const tanggalIzin = document.getElementById('tanggalIzin').value;
+        const jenisIzin = document.getElementById('jenisIzin').value;
+        const keterangan = document.getElementById('keteranganIzin').value;
+
+        // Validasi form
+        if (!namaKaryawan || !tanggalIzin || !jenisIzin || !keterangan) {
+            alert('Semua field harus diisi!');
+            return;
+        }
+
+        // Menambahkan data ke tabel
+        const tbody = document.querySelector('#izin table tbody');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${tbody.children.length + 1}</td>
+            <td>${namaKaryawan}</td>
+            <td>${tanggalIzin}</td>
+            <td>${jenisIzin}</td>
+            <td>${keterangan}</td>
+            <td><span class="badge bg-warning">Pending</span></td>
+            <td class="table-actions">
+                <i class="fas fa-edit text-warning"></i>
+                <i class="fas fa-trash text-danger"></i>
+            </td>
+        `;
+        tbody.appendChild(tr);
+
+        // Reset form dan tutup modal
+        document.getElementById('formTambahIzin').reset();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalTambahIzin'));
+        modal.hide();
+    }
+
+    // Fungsi untuk menangani form lembur
+    function tambahLembur() {
+        // Mengambil nilai dari form
+        const namaKaryawan = document.getElementById('namaKaryawanLembur').value;
+        const tanggalLembur = document.getElementById('tanggalLembur').value;
+        const jamMulai = document.getElementById('jamMulai').value;
+        const jamSelesai = document.getElementById('jamSelesai').value;
+        const keterangan = document.getElementById('keteranganLembur').value;
+
+        // Validasi form
+        if (!namaKaryawan || !tanggalLembur || !jamMulai || !jamSelesai || !keterangan) {
+            alert('Semua field harus diisi!');
+            return;
+        }
+
+        // Menghitung total jam
+        const mulai = new Date(`2023-01-01 ${jamMulai}`);
+        const selesai = new Date(`2023-01-01 ${jamSelesai}`);
+        const totalJam = (selesai - mulai) / (1000 * 60 * 60);
+
+        // Menambahkan data ke tabel
+        const tbody = document.querySelector('#lembur table tbody');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${tbody.children.length + 1}</td>
+            <td>${namaKaryawan}</td>
+            <td>${tanggalLembur}</td>
+            <td>${jamMulai}</td>
+            <td>${jamSelesai}</td>
+            <td>${totalJam} Jam</td>
+            <td>${keterangan}</td>
+            <td><span class="badge bg-warning">Pending</span></td>
+            <td class="table-actions">
+                <i class="fas fa-edit text-warning"></i>
+                <i class="fas fa-trash text-danger"></i>
+            </td>
+        `;
+        tbody.appendChild(tr);
+
+        // Reset form dan tutup modal
+        document.getElementById('formTambahLembur').reset();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalTambahLembur'));
+        modal.hide();
+    }
+
+    // Event listener saat dokumen selesai dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        // Menampilkan dashboard secara default
+        showContent('dashboard', document.querySelector('.nav-link.active'));
+
+        // Menambahkan event listener untuk tombol hapus
+        document.addEventListener('click', function(e) {
+            if(e.target.classList.contains('fa-trash')) {
+                if(confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                    e.target.closest('tr').remove();
+                }
+            }
+        });
+    });
+  </script>
+ </head>
+ <body>
+  <div class="d-flex">
+   <div class="sidebar">
+    <div class="profile-section mb-4">
+     <img alt="Profile Picture" class="img-fluid" height="70" src="data:image/png;base64,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" width="70"/>
+     <h5 class="mt-2">
+      Universitas Pamulang
+     </h5>
+     <p>
+      selamat datang, guruh aji saputra
+     </p>
+     <p>
+      <strong>
+       Administrator
+      </strong>
+     </p>
+    </div>
+    <nav class="nav flex-column">
+     <a class="nav-link active" href="#" onclick="showContent('dashboard', this)">
+      <i class="fas fa-tachometer-alt">
+      </i>
+      Dashboard
+     </a>
+     <p class="mt-3">
+      <strong>
+       MENU ADMIN
+      </strong>
+     </p>
+     <a class="nav-link" href="#" onclick="showContent('pengguna', this)">
+      <i class="fas fa-users">
+      </i>
+      Pengguna
+     </a>
+     <p class="mt-3">
+      <strong>
+       MENU KARYAWAN
+      </strong>
+     </p>
+     <a class="nav-link" href="#" onclick="showContent('karyawan', this)">
+      <i class="fas fa-user-friends">
+      </i>
+      Karyawan
+     </a>
+     <a class="nav-link" href="#" onclick="showContent('jabatan', this)">
+      <i class="fas fa-briefcase">
+      </i>
+      Jabatan
+     </a>
+     <a class="nav-link" href="#" onclick="showContent('divisi', this)">
+      <i class="fas fa-building">
+      </i>
+      Divisi
+     </a>
+     <p class="mt-3">
+      <strong>
+       MENU ABSENSI
+      </strong>
+     </p>
+     <a class="nav-link" href="#" onclick="showContent('absensi', this)">
+      <i class="fas fa-calendar-check">
+      </i>
+      Absensi
+     </a>
+     <a class="nav-link" href="#" onclick="showContent('izin', this)">
+      <i class="fas fa-calendar-alt">
+      </i>
+      Izin
+     </a>
+     <a class="nav-link" href="#" onclick="showContent('lembur', this)">
+      <i class="fas fa-clock">
+      </i>
+      Lembur
+     </a>
+     <p class="mt-3">
+      <strong>
+       <!-- Menu Penggajian -->
+<p class="mt-3"><strong>MENU PENGGAJIAN</strong></p>
+<a class="nav-link" href="#" onclick="showContent('slipGaji', this)">
+    <i class="fas fa-file-invoice-dollar"></i>
+    Slip Gaji
+</a>
+<a class="nav-link" href="#" onclick="showContent('cetakSlipGaji', this)">
+    <i class="fas fa-print"></i>
+    Cetak Slip Gaji
+</a>
+
+<!-- Menu Laporan -->
+<p class="mt-3"><strong>MENU LAPORAN</strong></p>
+<a class="nav-link" href="#" onclick="showContent('laporan', this)">
+    <i class="fas fa-file-alt"></i>
+    Laporan
+</a>
+<a class="nav-link" href="#" onclick="showContent('cetakLaporan', this)">
+    <i class="fas fa-print"></i>
+    Cetak Laporan
+</a>
+       MENU LAINNYA
+      </strong>
+     </p>
+     <a class="nav-link" href="#">
+      <i class="fas fa-sign-out-alt">
+      </i>
+      Logout
+     </a>
+    </nav>
+   </div>
+   <div class="flex-grow-1">
+    <div class="header">
+     <h4 class="d-inline">
+      UNIVERSITAS PAMULANG
+     </h4>
+     <i class="fas fa-user-circle profile-icon" onclick="toggleProfileMenu()">
+     </i>
+     <div class="profile-menu" id="profileMenu">
+      <a href="#" onclick="showContent('profile', this)">
+       Profile
+      </a>
+      <a href="#">
+       Logout
+      </a>
+     </div>
+    </div>
+    <div class="content">
+     <div class="content-section" id="dashboard">
+      <h5>
+       Sistem Informasi Manajemen Karyawan
+      </h5>
+      <p>
+       Admin Dashboard
+      </p>
+      <div class="row">
+       <div class="col-md-3">
+        <div class="card p-3 mb-3">
+         <div class="d-flex align-items-center">
+          <i class="fas fa-users text-primary">
+          </i>
+          <div class="ms-3">
+           <h6>
+            Data Pegawai
+           </h6>
+           <p class="mb-0">
+            3
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-md-3">
+        <div class="card p-3 mb-3">
+         <div class="d-flex align-items-center">
+          <i class="fas fa-calendar-alt text-success">
+          </i>
+          <div class="ms-3">
+           <h6>
+            Absensi Hari Ini
+           </h6>
+           <p class="mb-0">
+            2 november 2024
+           </p>
+           <p class="mb-0">
+            0
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-md-3">
+        <div class="card p-3 mb-3">
+         <div class="d-flex align-items-center">
+          <i class="fas fa-check-circle text-info">
+          </i>
+          <div class="ms-3">
+           <h6>
+            Izin Menunggu Konfirmasi
+           </h6>
+           <p class="mb-0">
+            2
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-md-3">
+        <div class="card p-3 mb-3">
+         <div class="d-flex align-items-center">
+          <i class="fas fa-check-circle text-info">
+          </i>
+          <div class="ms-3">
+           <h6>
+            Lembur Menunggu Konfirmasi
+           </h6>
+           <p class="mb-0">
+            1
+           </p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="content-section hidden" id="pengguna">
+      <h5>
+       Pengguna
+      </h5>
+      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahPengguna">
+        Tambah Pengguna Baru
+    </button>
+      <table class="table table-bordered">
+       <thead>
+        <tr>
+         <th>
+          Nomor Pengguna
+         </th>
+         <th>
+          Nama Pengguna
+         </th>
+         <th>
+          Email Pengguna
+         </th>
+         <th>
+          Aksi
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          1
+         </td>
+         <td>
+          guruh aji saputra
+         </td>
+         <td>
+          guruh@gmail.com
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          2
+         </td>
+         <td>
+          sasila
+         </td>
+         <td>
+          sila@.com
+         </td>
+         <tr>
+            <td>
+             3
+            </td>
+            <td>
+             kirana
+            </td>
+            <td>
+             rana@.com
+            </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     
+     <div class="content-section hidden" id="karyawan">
+      <h5>
+       Data Karyawan
+      </h5>
+      <button class="btn btn-primary mb-3">
+       Tambah Karyawan Baru
+      </button>
+      <table class="table table-bordered">
+       <thead>
+        <tr>
+         <th>
+          Nomor Karyawan
+         </th>
+         <th>
+          Kode Karyawan
+         </th>
+         <th>
+          Nama Karyawan
+         </th>
+         <th>
+          Email Karyawan
+         </th>
+         <th>
+          Alamat Karyawan
+         </th>
+         <th>
+          Jabatan Karyawan
+         </th>
+         <th>
+          Aksi
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          1
+         </td>
+         <td>
+          K001
+         </td>
+         <td>
+          guruhh
+         </td>
+         <td>
+          guruh@.com
+         </td>
+         <td>
+          Jl.  No. 1
+         </td>
+         <td>
+          Manager
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          2
+         </td>
+         <td>
+          K002
+         </td>
+         <td>
+          kirana
+         </td>
+         <td>
+          rana@.com
+         </td>
+         <td>
+          Jl. No. 2
+         </td>
+         <td>
+          Staff
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+        <tr>
+            <td>
+             3
+            </td>
+            <td>
+             K003
+            </td>
+            <td>
+             sila
+            </td>
+            <td>
+             sila@.com
+            </td>
+            <td>
+             Jl. No. 3
+            </td>
+            <td>
+             Staff
+            </td>
+            <td class="table-actions">
+             <i class="fas fa-edit text-warning">
+             </i>
+             <i class="fas fa-trash text-danger">
+             </i>
+            </td>
+           </tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="content-section hidden" id="jabatan">
+      <h5>
+       Jabatan
+      </h5>
+      <button class="btn btn-primary mb-3">
+       Tambah Jabatan Baru
+      </button>
+      <table class="table table-bordered">
+       <thead>
+        <tr>
+         <th>
+          Nomor Jabatan
+         </th>
+         <th>
+          Nama Jabatan
+         </th>
+         <th>
+          Aksi
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          guruh
+         </td>
+         <td>
+          Manager
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          kirana
+         </td>
+         <td>
+          staff        </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="content-section hidden" id="divisi">
+      <h5>
+       Divisi
+      </h5>
+      <button class="btn btn-primary mb-3">
+       Tambah Divisi Baru
+      </button>
+      <table class="table table-bordered">
+       <thead>
+        <tr>
+         <th>
+          Nomor Divisi
+         </th>
+         <th>
+          Nama Divisi
+         </th>
+         <th>
+          Aksi
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          1
+         </td>
+         <td>
+          IT
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          2
+         </td>
+         <td>
+          HR
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="content-section hidden" id="absensi">
+        <h5>
+         Absensi
+        </h5>
+        <button class="btn btn-primary mb-3">
+         Tambah Absensi Baru
+        </button>
+        <table class="table table-bordered">
+         <thead>
+          <tr>
+           <th>
+            Nomor
+           </th>
+           <th>
+            Nama Karyawan
+           </th>
+           <th>
+            Tanggal
+           </th>
+           <th>
+            Lokasi Absen
+           </th>
+           <th>
+            Jam Masuk
+           </th>
+           <th>
+            Jam Keluar
+           </th>
+           <th>
+            Aksi
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            1
+           </td>
+           <td>
+            kirana
+           </td>
+           <td>
+             2 November 2024
+           </td>
+           <td>
+            Kantor Pusat
+           </td>
+           <td>
+            08:00
+           </td>
+           <td>
+            17:00
+           </td>
+           <td class="table-actions">
+            <i class="fas fa-edit text-warning">
+            </i>
+            <i class="fas fa-trash text-danger">
+            </i>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            2
+           </td>
+           <td>
+            laura
+           </td>
+           <td>
+            1 november 2024
+           </td>
+           <td>
+            Kantor Cabang
+           </td>
+           <td>
+            08:30
+           </td>
+           <td>
+            17:30
+           </td>
+           <td class="table-actions">
+            <i class="fas fa-edit text-warning">
+            </i>
+            <i class="fas fa-trash text"></i>
+     <div class="content-section hidden" id="izin">
+      <h5>
+       Absensi
+      </h5>
+      <button class="btn btn-primary mb-3">
+       Tambah Absensi Baru
+      </button>
+      <table class="table table-bordered">
+       <thead>
+        <tr>
+         <th>
+          Nomor
+         </th>
+         <th>
+          Nama Karyawan
+         </th>
+         <th>
+          Tanggal
+         </th>
+         <th>
+          Lokasi Absen
+         </th>
+         <th>
+          Jam Masuk
+         </th>
+         <th>
+          Jam Keluar
+         </th>
+         <th>
+          Aksi
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          1
+         </td>
+         <td>
+          kirana
+         </td>
+         <td>
+           2 November 2024
+         </td>
+         <td>
+          Kantor Pusat
+         </td>
+         <td>
+          08:00
+         </td>
+         <td>
+          17:00
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text-danger">
+          </i>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          2
+         </td>
+         <td>
+          laura
+         </td>
+         <td>
+          1 november 2024
+         </td>
+         <td>
+          Kantor Cabang
+         </td>
+         <td>
+          08:30
+         </td>
+         <td>
+          17:30
+         </td>
+         <td class="table-actions">
+          <i class="fas fa-edit text-warning">
+          </i>
+          <i class="fas fa-trash text"></i>
+ 
+          <div class="content-section hidden" id="izin">
+            <h5>
+             izin
+            </h5>
+            <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahPengguna">
+              Tambah Pengguna Baru
+          </button>
+            <table class="table table-bordered">
+             <thead>
+              <tr>
+               <th>
+                Nomor Pengguna
+               </th>
+               <th>
+                Nama Pengguna
+               </th>
+               <th>
+                Email Pengguna
+               </th>
+               <th>
+                Aksi
+               </th>
+              </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>
+                1
+               </td>
+               <td>
+                guruh aji saputra
+               </td>
+               <td>
+                guruh@gmail.com
+               </td>
+               <td class="table-actions">
+                <i class="fas fa-edit text-warning">
+                </i>
+                <i class="fas fa-trash text-danger">
+                </i>
+               </td>
+              </tr>
+              <tr>
+               <td>
+                2
+               </td>
+               <td>
+                sasila
+               </td>
+               <td>
+                sila@.com
+               </td>
+               <tr>
+                  <td>
+                   3
+                  </td>
+                  <td>
+                   kirana
+                  </td>
+                  <td>
+                   rana@.com
+                  </td>
+               <td class="table-actions">
+                <i class="fas fa-edit text-warning">
+                </i>
+                <i class="fas fa-trash text-danger">
+                </i>
+               </td>
+              </tr>
+             </tbody>
+            </table>
+           </div>
+         
+           <div class="content-section hidden" id="lembur">
+            <h5>Data Lembur</h5>
+            <button class="btn btn-primary mb-3">Tambah Lembur Baru</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Karyawan</th>
+                        <th>Tanggal Lembur</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Selesai</th>
+                        <th>Total Jam</th>
+                        <th>Keterangan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Guruh Aji</td>
+                        <td>2023-11-01</td>
+                        <td>17:00</td>
+                        <td>20:00</td>
+                        <td>3 Jam</td>
+                        <td>Project Deadline</td>
+                        <td><span class="badge bg-warning">Pending</span></td>
+                        <td class="table-actions">
+                            <i class="fas fa-edit text-warning"></i>
+                            <i class="fas fa-trash text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Kirana</td>
+                        <td>2023-11-02</td>
+                        <td>17:00</td>
+                        <td>21:00</td>
+                        <td>4 Jam</td>
+                        <td>Maintenance Server</td>
+                        <td><span class="badge bg-success">Disetujui</span></td>
+                        <td class="table-actions">
+                            <i class="fas fa-edit text-warning"></i>
+                            <i class="fas fa-trash text-danger"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+         
+  
+         
+  
